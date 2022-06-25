@@ -1,5 +1,5 @@
 [tool.poetry]
-name = "lolzautobuy"
+name = "LolzAutoBuy"
 version = "1.0.0"
 description = "Application for buying accounts from market lolzteam forum"
 authors = ["ZeN220 <hidden@gmail.com>"]
