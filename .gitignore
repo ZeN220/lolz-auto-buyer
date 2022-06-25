@@ -1,0 +1,12 @@
+# Cache
+__pycache__/
+
+# IDE directories
+.idea
+venv
+
+# Config file
+config.ini
+
+# Poetry files
+poetry.lock

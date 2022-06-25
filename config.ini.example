@@ -1,0 +1,13 @@
+[lolzteam]
+token = 31156ccaff01dad7610dd6d4409d1593cd94cd9f # Your token from lolzteam
+search_url = https://lolz.guru/market/steam/?order_by=price_to_up # URL from https://lolz.guru/market
+count = 1 # Count accounts which need to buy
+
+[telegram]
+bot_token = 1:AAABBBCCC # Telegram token bot which send message when will buy account
+id = 1 # Your Telegram ID
+text_message = По вашему запросу успешно куплен аккаунт! # Text message which bot will send to your Telegram ID
+
+[logging]
+level = 20
+format = [%%(levelname)s] %%(asctime)s - %%(name)s - %%(message)s

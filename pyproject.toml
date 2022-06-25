@@ -1,0 +1,14 @@
+[tool.poetry]
+name = "lolzautobuy"
+version = "1.0.0"
+description = "Application for buying accounts from market lolzteam forum"
+authors = ["ZeN220 <hidden@gmail.com>"]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+
+[tool.poetry.dev-dependencies]
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
