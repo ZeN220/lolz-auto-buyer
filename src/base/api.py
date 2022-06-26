@@ -28,7 +28,7 @@ class BaseAPI(ABC):
             error_response = http_error.read().decode('utf-8')
             return json.loads(error_response)
         except error.URLError:
-            # Server can be return a 104 socket error. This error never see you at application work
+            # Server can be return a 104 socket error. This error will not affect the operation of the application
             self.api_request(method, data, request_method)
 
     @property
