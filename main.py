@@ -31,7 +31,8 @@ def main(
                     reserve_errors = reserve.get('errors')
                     if reserve_errors:
                         logging.info(f'При попытке бронирования возникла ошибка: {reserve_errors[0]}')
-                        continue
+                        market_item.cancel_reserve()
+                        break
 
                     logging.info(f'Проверяю аккаунт {item_id}...')
                     check_account = market_item.check()
@@ -39,7 +40,7 @@ def main(
                     if check_account_errors:
                         logging.info(f'При попытке проверки аккаунта возникла ошибка: {check_account_errors[0]}')
                         market_item.cancel_reserve()
-                        continue
+                        break
 
                     logging.info(f'Покупаю аккаунт {item_id}...')
                     buy_account = market_item.confirm_buy()
@@ -47,7 +48,7 @@ def main(
                     if buy_account_errors:
                         logging.info(f'При попытке покупки аккаунта возникла ошибка: {buy_account_errors[0]}')
                         market_item.cancel_reserve()
-                        continue
+                        break
 
                     count_purchase += 1
                     telegram.send_message(text, telegram_id)
