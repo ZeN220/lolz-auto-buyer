@@ -3,6 +3,7 @@ import time
 from abc import ABC, abstractmethod
 from typing import Optional
 from urllib import request, parse, error
+from socket import error as SocketError
 
 from src.base.types import Response
 
@@ -27,7 +28,7 @@ class BaseAPI(ABC):
         except error.HTTPError as http_error:
             error_response = http_error.read().decode('utf-8')
             return json.loads(error_response)
-        except error.URLError:
+        except (error.URLError, SocketError):
             # Server can be return a 104 socket error. This error will not affect the operation of the application
             self.api_request(method, data, request_method)
 
