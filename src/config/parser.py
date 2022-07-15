@@ -1,3 +1,5 @@
+from typing import List
+
 from configparser import ConfigParser
 from dataclasses import dataclass
 
@@ -7,7 +9,7 @@ from src.config.base_field import BaseField
 @dataclass
 class Lolzteam(BaseField):
     token: str
-    search_url: str
+    search_urls_list: List[str]
     count: int
 
 

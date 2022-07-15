@@ -1,4 +1,5 @@
 import logging
+from typing import List
 
 from src.config import Config
 from src.market import MarketItem, MarketAPI
@@ -6,19 +7,25 @@ from src.telegram import TelegramAPI
 
 
 def main(
-        lolzteam_token: str, telegram_token: str, telegram_id: int,
-        text: str, search_url: str, count_accounts: int
+    lolzteam_token: str, telegram_token: str, telegram_id: int,
+    text: str, search_urls: List[str], count_accounts: int
 ):
     telegram = TelegramAPI(telegram_token)
     market = MarketAPI(lolzteam_token)
-    category, params = market.parse_search_data(search_url)
     count_purchase = 0
+    searches = []
+    for search_url in search_urls:
+        category, params = market.parse_search_data(search_url)
+        searches.append((category, params))
 
     while True:
-        search_result = market.search(category, params)
-        if search_result:
+        for search in searches:
+            search_result = market.search(search[0], search[1])
             items = search_result['items']
-            logging.info(f'По вашему запросу найдено {len(items)} аккаунтов')
+            if not items:
+                continue
+
+            logging.info(f'По запросу {search} найдено {len(items)} аккаунтов')
 
             for item in items:
                 while count_purchase < count_accounts:
@@ -62,7 +69,7 @@ if __name__ == '__main__':
     logging.basicConfig(level=config.logging.level, format=config.logging.format)
 
     main(
-        lolzteam_token=config.lolzteam.token, search_url=config.lolzteam.search_url,
+        lolzteam_token=config.lolzteam.token, search_urls=config.lolzteam.search_urls_list,
         count_accounts=config.lolzteam.count, telegram_token=config.telegram.bot_token,
         telegram_id=config.telegram.id, text=config.telegram.text_message
     )
