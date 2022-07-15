@@ -24,7 +24,7 @@ python main.py
 # FAQ
 Q - Можно ли вставить несколько запросов в скрипт? <br>
 A - Да. Для этого вам нужно перечислить ссылки на покупку через запятую, например:<br>
-`search_urls_listhttps://lolz.guru/market/discord/?order_by=price_to_up&pmin=10, https://lolz.guru/market/discord/?order_by=price_to_up&pmin=100&pmax=1000`
+`search_urls_list = https://lolz.guru/market/discord/?order_by=price_to_up&pmin=10, https://lolz.guru/market/discord/?order_by=price_to_up&pmin=100&pmax=1000`
 
 Q - Можно ли уменьшить задержку между запросами? <br>
 A - Нет, это ограничение идет со стороны Market API и обойти его никак нельзя.
