@@ -23,10 +23,9 @@ def main():
         for search, params in searches:
             search_result = market.search(search, params)
             items = search_result.get('items', [])
+            logging.info(f'По запросу {search} с параметрами {params} найдено {len(items)} аккаунтов')
             if not items:
                 continue
-
-            logging.info(f'По запросу {search} с параметрами {params} найдено {len(items)} аккаунтов')
 
             for item in items:
                 if count_purchase >= config.lolzteam.count:
