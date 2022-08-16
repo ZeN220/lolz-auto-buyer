@@ -5,7 +5,7 @@ from typing import Optional
 from urllib import request, parse, error
 from socket import error as SocketError
 
-from src.base.errors import MarketBuyError
+from src.base.errors import MarketBuyError, AuthorizationError
 from src.base.types import Response
 
 
@@ -32,8 +32,10 @@ class BaseAPI(ABC):
 
         except error.HTTPError as http_error:
             error_response = http_error.read().decode('utf-8')
-            error_response = json.loads(error_response)
-            raise MarketBuyError(error_response['errors'][0])
+            error_response = json.loads(error_response).get('errors')
+            if error_response:
+                raise MarketBuyError(error_response[0])
+            raise AuthorizationError('Token is invalid')
         except (error.URLError, SocketError):
             # Server can be return a 104 socket error. This error will not affect the operation of the application
             self.api_request(method, data, request_method)

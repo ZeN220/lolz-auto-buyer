@@ -1,6 +1,7 @@
 from typing import Optional, Tuple
 import re
 
+from src.market.types import BearerToken, Headers
 from src.base import BaseAPI, Response
 
 
@@ -10,15 +11,11 @@ class MarketAPI(BaseAPI):
 
     def __init__(self, token: str):
         self.token = token
-        self._headers = {'Authorization': f'Bearer {self.token}'}
+        self._headers = Headers(Authorization=BearerToken(self.token))
 
     @property
     def headers(self) -> dict:
         return self._headers
-
-    @headers.setter
-    def headers(self, value):
-        raise ValueError('Headers cannot be set')
 
     def search(self, category: str, search_params: str) -> Response:
         response = self.api_request(f'{category}/?{search_params}')
