@@ -46,7 +46,7 @@ python main.py
 
 
 # FAQ
-Q - Как получить токен Lolzteam?
+Q - Как получить токен Lolzteam?<br>
 A - Для этого в первую очередь вам нужно создать приложение. Сделать это можно через [настройки API](https://lolz.guru/account/api). В поле Redirect URI вы можете указать любую, например, главную страницу форума: https://lolz.guru. <br>
 После создания приложения, вам нужно скопировать Client ID своего приложения и вставить его в ссылку: 
 `https://lolz.guru/api/index.php?oauth/authorize&response_type=token&client_id=CLIENT_ID&scope=read+post+usercp+conversate`<br>
