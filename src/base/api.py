@@ -38,7 +38,7 @@ class BaseAPI(ABC):
             raise AuthorizationError('Token is invalid')
         except (error.URLError, SocketError):
             # Server can be return a 104 socket error. This error will not affect the operation of the application
-            self.api_request(method, data, request_method)
+            return self.api_request(method, data, request_method)
 
     @property
     @abstractmethod
