@@ -23,7 +23,7 @@ class MarketAPI(BaseAPI):
 
     @staticmethod
     def parse_search_data(search_url: str) -> Optional[Tuple[str, str]]:
-        parse = re.findall(r'https://lolz.guru/market/(\w+)/\?(.+)', search_url)
+        parse = re.findall(r'https://lolz.guru/market/([\w\-]+)/\?(.+)', search_url)
         if not parse:
             raise TypeError('Format search URL is invalid')
         return parse[0]
