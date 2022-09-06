@@ -29,7 +29,7 @@ def main():
             for item in items:
                 if count_purchase >= config.lolzteam.count:
                     logging.info(f'Успешно куплено {count_purchase} аккаунтов, работа завершена.')
-                    return
+                    exit()
 
                 item_id = item["item_id"]
                 market_item = MarketItem(item, lolzteam_token)
