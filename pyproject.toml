@@ -1,7 +1,7 @@
 [tool.poetry]
 name = "LolzAutoBuy"
-version = "1.1.0"
-description = "Application for buying accounts from market lolzteam forum"
+version = "2.0.0"
+description = "Application for automatization actions from market lolzteam forum"
 authors = ["ZeN220 <hidden@gmail.com>"]
 
 [tool.poetry.dependencies]
