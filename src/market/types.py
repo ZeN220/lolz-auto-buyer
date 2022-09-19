@@ -15,7 +15,7 @@ class BearerToken(str):
 
 @dataclass
 class Headers(dict):
-    Authorization: BearerToken
+    authorization: BearerToken
 
     def __post_init__(self):
         super().__init__(**self.__dict__)

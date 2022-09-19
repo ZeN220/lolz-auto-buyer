@@ -2,16 +2,12 @@ from typing import Optional, Tuple
 import re
 
 from src.market.types import BearerToken, Headers
-from src.base import BaseAPI, Response
+from .base import BaseMarketAPI, Response
 
 
-class MarketAPI(BaseAPI):
-    API_URL: str = 'https://api.lolz.guru/market'
-    delay: int = 3
-
+class MarketAPI(BaseMarketAPI):
     def __init__(self, token: str):
-        self.token = token
-        self._headers = Headers(Authorization=BearerToken(self.token))
+        self._headers = Headers(authorization=BearerToken(token))
 
     @property
     def headers(self) -> dict:

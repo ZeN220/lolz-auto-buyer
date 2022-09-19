@@ -1,34 +1,37 @@
 import logging
 
-from src.base import BaseAPI, Response, MarketBuyError
+from src.market.types import BearerToken, Headers
+from .base import BaseMarketAPI, Response
 
 logger = logging.getLogger(__name__)
 
 
-class MarketItem(BaseAPI):
+class MarketItem(BaseMarketAPI):
     API_URL: str = 'https://api.lolz.guru/market'
     delay: int = 3
 
     def __init__(self, item_object: dict, token: str):
+        """
+        :param item_object: Item object from search response
+        """
         self.item_object = item_object
-        self.token = token
-        self._headers = {'Authorization': f'Bearer {self.token}'}
         self.API_URL += f'/{self.item_object["item_id"]}'
+        self._headers = Headers(authorization=BearerToken(token))
 
     @property
     def headers(self) -> dict:
         return self._headers
-
-    @headers.setter
-    def headers(self, value):
-        raise ValueError('Headers cannot be set')
 
     def check(self) -> Response:
         response = self.api_request('check-account', request_method='POST')
         return response
 
     def reserve(self) -> Response:
-        response = self.api_request('reserve', data={'price': self.item_object['price']}, request_method='POST')
+        response = self.api_request(
+            'reserve',
+            data={'price': self.item_object['price']},
+            request_method='POST'
+        )
         return response
 
     def cancel_reserve(self) -> Response:

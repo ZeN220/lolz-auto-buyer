@@ -1,8 +1,7 @@
 import logging
 
-from src.base import MarketBuyError
 from src.config import Config
-from src.market import MarketItem, MarketAPI
+from src.market import MarketItem, MarketAPI, MarketBuyError
 from src.telegram import TelegramAPI
 
 
@@ -36,7 +35,9 @@ def main():
                 try:
                     market_item.buy()
                 except MarketBuyError as error:
-                    logging.info(f'При попытке покупки аккаунта {item_id} произошла ошибка: {error.message}')
+                    logging.info(
+                        f'При попытке покупки аккаунта {item_id} произошла ошибка: {error.message}'
+                    )
                     continue
                 else:
                     count_purchase += 1
