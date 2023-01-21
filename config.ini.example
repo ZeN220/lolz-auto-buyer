@@ -6,7 +6,6 @@ count = 1
 [telegram]
 bot_token = 1:AAABBBCCC
 id = 1
-text_message = По вашему запросу успешно куплен аккаунт!
 
 [logging]
 level = 20

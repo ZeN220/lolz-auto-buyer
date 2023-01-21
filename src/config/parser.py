@@ -17,7 +17,6 @@ class Lolzteam(BaseField):
 class Telegram(BaseField):
     bot_token: str
     id: int
-    text_message: str
 
 
 @dataclass

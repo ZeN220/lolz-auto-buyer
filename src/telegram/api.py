@@ -11,7 +11,12 @@ class TelegramAPI:
         self.bot_token = bot_token
         self.API_URL += self.bot_token
 
-    def api_request(self, method: str, data: Optional[dict] = None, request_method: str = 'GET') -> dict:
+    def api_request(
+        self,
+        method: str,
+        data: Optional[dict] = None,
+        request_method: str = 'GET'
+    ) -> dict:
         if data is not None:
             data = parse.urlencode(data).encode()
         response = request.Request(
@@ -22,6 +27,6 @@ class TelegramAPI:
             response = json.load(response)
             return response
 
-    def send_message(self, text: str, chat_id: int) -> dict:
-        response = self.api_request('sendMessage', {'text': text, 'chat_id': chat_id})
+    def send_message(self, text: str, chat_id: int, **kwargs) -> dict:
+        response = self.api_request('sendMessage', {'text': text, 'chat_id': chat_id, **kwargs})
         return response

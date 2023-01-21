@@ -42,7 +42,18 @@ def main():
                 else:
                     logging.info(f'Аккаунт {item_id} успешно куплен!')
                     count_purchase += 1
-                    telegram.send_message(config.telegram.text_message, config.telegram.id)
+                    account_object = market_item.item_object
+                    seller = account_object['seller']
+                    telegram.send_message(
+                        f"👷 Приобретен аккаунт: <a href=\"https://lzt.market/{item_id}\">"
+                        f"{account_object['title']}</a>\n"
+                        f"💲 Цена: <code>{account_object['price']}₽</code>\n"
+                        f"👷 Продавец: <a href=\"https://zelenka.guru/members/{seller['user_id']}\">"
+                        f"{seller['username']}</a>",
+                        config.telegram.id,
+                        parse_mode='HTML'
+                    )
+
                     if count_purchase >= config.lolzteam.count:
                         logging.info(
                             f'Успешно куплено {count_purchase} аккаунтов, работа завершена.')
