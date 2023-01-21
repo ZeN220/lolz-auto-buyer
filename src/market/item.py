@@ -7,15 +7,12 @@ logger = logging.getLogger(__name__)
 
 
 class MarketItem(BaseMarketAPI):
-    API_URL: str = 'https://api.lolz.guru/market'
-    delay: int = 3
-
     def __init__(self, item_object: dict, token: str):
         """
         :param item_object: Item object from search response
         """
         self.item_object = item_object
-        self.API_URL += f'/{self.item_object["item_id"]}'
+        self.API_URL += f'{self.item_object["item_id"]}/'
         self._headers = Headers(authorization=BearerToken(token))
 
     @property

@@ -1,5 +1,5 @@
 # LolzAutoBuy
-Данный скрипт предназначен для автоматического поиска и покупки аккаунтов с маркета https://lolz.guru/market.
+Данный скрипт предназначен для автоматического поиска и покупки аккаунтов с маркета https://lzt.market.
 
 Для его запуска вам потребуется Windows/Linux, а также установленный Python 3.8+. **Никакие библиотеки предустанавливать не нужно**. 
 
@@ -9,11 +9,11 @@
 ## Lolzteam
 ```
 token = 31156ccaff01dad7610dd6d4409d1593cd94cd9f
-search_urls_list = https://lolz.guru/market/steam/?order_by=price_to_up, https://lolz.guru/market/discord/?order_by=price_to_up&pmax=10
+search_urls_list = https://lzt.market/steam/?order_by=price_to_up, https://lolz.guru/market/discord/?order_by=price_to_up&pmax=10
 count = 1
 ```
 `token` - Сюда вы вставляете свой токен от аккаунта Lolzteam.<br>
-`search_urls_list` - В данное поле вы вставляете ссылки, по которым скрипт будет искать и покупать аккаунты. Чтобы ее получить, вам  нужно выставить нужные параметры в [поиске маркета](https://lolz.guru/market/) и просто скопировать ссылку из адресной строки (видоизменять её **не** нужно).<br>
+`search_urls_list` - В данное поле вы вставляете ссылки, по которым скрипт будет искать и покупать аккаунты. Чтобы ее получить, вам нужно выставить нужные параметры в [поиске маркета](https://lzt.market) и просто скопировать ссылку из адресной строки (видоизменять её **не** нужно).<br>
 `count` - Данное поле отвечает за количество аккаунтов, которое будет куплено. После превышения данного числа скрипт закончит работу.
 ## Telegram
 ```
@@ -31,7 +31,7 @@ text_message = По вашему запросу успешно куплен ак
 level = 20<br>
 format = [%%(levelname)s] %%(asctime)s - %%(name)s - %%(message)s<br>
 ```
-`level` - Уровень логгирования.<br>
+`level` - Уровень логирования. <br>
 `format` - Формат логов. (Из-за особенностей файла .ini символ '%' нужно экранировать)
 
 # Как его запустить?
@@ -47,15 +47,11 @@ python __main__.py
 
 # FAQ
 Q - Как получить токен Lolzteam?<br>
-A - Для этого в первую очередь вам нужно создать приложение. Сделать это можно через [настройки API](https://lolz.guru/account/api). В поле Redirect URI вы можете указать любую, например, главную страницу форума: https://lolz.guru. <br>
-После создания приложения, вам нужно скопировать Client ID своего приложения и вставить его в ссылку: 
-`https://api.lolz.guru/oauth/authorize?response_type=token&client_id=CLIENT_ID&scope=read+post+market`<br>
-И в адресной строке будет наш токен:<br>
-![Взято из https://lolz.guru/posts/comments/8086747](https://i.imgur.com/KLriwYl.png)
+A - Для этого вам нужно перейти по [ссылке](https://zelenka.guru/account/authorize?client_id=v3fqcys6di&response_type=token&scope=market+read+post). После выдачи разрешения, вас перенаправит на этот же репозиторий. Вам будет достаточно скопировать значение параметра `access_token` из адресной строки браузера.
+![Взято из https://zelenka.guru/posts/comments/8086747](https://i.imgur.com/KLriwYl.png)
 
 Q - Можно ли вставить несколько запросов в скрипт? <br>
-A - Да. Для этого вам нужно перечислить ссылки на покупку через запятую, например:<br>
-`search_urls_list = https://lolz.guru/market/discord/?order_by=price_to_up&pmin=10, https://lolz.guru/market/discord/?order_by=price_to_up&pmin=100&pmax=1000`
+A - Да. Для этого вам нужно перечислить ссылки на покупку через запятую.
 
 Q - Можно ли уменьшить задержку между запросами? <br>
 A - Нет, это ограничение идет со стороны Market API и обойти его никак нельзя.
