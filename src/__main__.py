@@ -23,25 +23,27 @@ def main():
             search_result = market.search(search, params)
             items = search_result.get('items', [])
 
-            logging.info(f'По запросу {search} с параметрами {params} найдено {len(items)} аккаунтов')
+            logging.info(
+                f'По запросу {search} с параметрами {params} найдено {len(items)} аккаунтов'
+            )
 
             for item in items:
-                if count_purchase >= config.lolzteam.count:
-                    logging.info(f'Успешно куплено {count_purchase} аккаунтов, работа завершена.')
-                    exit()
-
                 item_id = item["item_id"]
                 market_item = MarketItem(item, lolzteam_token)
                 try:
                     market_item.buy()
                 except MarketBuyError as error:
-                    logging.info(
+                    logging.warning(
                         f'При попытке покупки аккаунта {item_id} произошла ошибка: {error.message}'
                     )
                     continue
                 else:
                     count_purchase += 1
                     telegram.send_message(config.telegram.text_message, config.telegram.id)
+                    if count_purchase >= config.lolzteam.count:
+                        logging.info(
+                            f'Успешно куплено {count_purchase} аккаунтов, работа завершена.')
+                        exit()
                     break
 
 
