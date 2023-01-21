@@ -14,32 +14,10 @@ class MarketItem(BaseMarketAPI):
         self.API_URL += f'{self.item_object["item_id"]}/'
         super().__init__(token=token)
 
-    def check(self) -> Response:
-        response = self.api_request('check-account', request_method='POST')
-        return response
-
-    def reserve(self) -> Response:
+    def fast_buy(self) -> Response:
         response = self.api_request(
-            'reserve',
+            'fast-buy',
             data={'price': self.item_object['price']},
             request_method='POST'
         )
         return response
-
-    def cancel_reserve(self) -> Response:
-        response = self.api_request('cancel-reserve', request_method='POST')
-        return response
-
-    def confirm_buy(self) -> Response:
-        response = self.api_request('confirm-buy', request_method='POST')
-        return response
-
-    def buy(self) -> None:
-        item_id = self.item_object['item_id']
-        logger.info(f'Бронирую аккаунт {item_id}...')
-        self.reserve()
-        logger.info(f'Проверяю аккаунт {item_id}...')
-        self.check()
-        logger.info(f'Покупаю аккаунт {item_id}...')
-        self.confirm_buy()
-        logger.info(f'Аккаунт {item_id} успешно куплен!')

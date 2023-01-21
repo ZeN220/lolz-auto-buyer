@@ -32,13 +32,15 @@ def main():
                 item_id = item["item_id"]
                 market_item = MarketItem(item, lolzteam_token)
                 try:
-                    market_item.buy()
+                    logging.info(f'Покупаю аккаунт {item_id}')
+                    market_item.fast_buy()
                 except MarketBuyError as error:
                     logging.warning(
                         f'При попытке покупки аккаунта {item_id} произошла ошибка: {error.message}'
                     )
                     continue
                 else:
+                    logging.info(f'Аккаунт {item_id} успешно куплен!')
                     count_purchase += 1
                     telegram.send_message(config.telegram.text_message, config.telegram.id)
                     if count_purchase >= config.lolzteam.count:
