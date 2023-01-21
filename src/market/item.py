@@ -1,6 +1,5 @@
 import logging
 
-from src.market.types import BearerToken, Headers
 from .base import BaseMarketAPI, Response
 
 logger = logging.getLogger(__name__)
@@ -13,11 +12,7 @@ class MarketItem(BaseMarketAPI):
         """
         self.item_object = item_object
         self.API_URL += f'{self.item_object["item_id"]}/'
-        self._headers = Headers(authorization=BearerToken(token))
-
-    @property
-    def headers(self) -> dict:
-        return self._headers
+        super().__init__(token=token)
 
     def check(self) -> Response:
         response = self.api_request('check-account', request_method='POST')

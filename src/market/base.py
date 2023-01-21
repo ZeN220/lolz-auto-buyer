@@ -1,6 +1,5 @@
 import json
 import time
-from abc import ABC, abstractmethod
 from socket import error as socket_error
 from typing import Optional, Dict, Union, List
 from urllib import request, parse, error
@@ -10,10 +9,15 @@ from .errors import MarketBuyError, AuthorizationError
 Response = Dict[str, Union[str, int, List[dict]]]
 
 
-class BaseMarketAPI(ABC):
+class BaseMarketAPI:
     API_URL: str = 'https://api.lzt.market/'
     # Lolzteam API for market have a limit of 1 requests per 3 second
     delay: int = 3
+
+    def __init__(self, token: str, headers: Optional[dict] = None):
+        self.token = token
+        self.headers = headers or {}
+        self.headers.setdefault("Authorization", f"Bearer {self.token}")
 
     def api_request(
         self,
@@ -50,8 +54,3 @@ class BaseMarketAPI(ABC):
             This error will not affect the operation of the application
             """
             return self.api_request(method, data, request_method)
-
-    @property
-    @abstractmethod
-    def headers(self) -> dict:
-        ...
