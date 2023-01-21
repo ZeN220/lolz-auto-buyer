@@ -4,7 +4,7 @@ from socket import error as socket_error
 from typing import Optional, Dict, Union, List
 from urllib import request, parse, error
 
-from .errors import MarketBuyError, AuthorizationError
+from .errors import MarketBuyError
 
 Response = Dict[str, Union[str, int, List[dict]]]
 
@@ -36,9 +36,9 @@ class BaseMarketAPI:
         try:
             with request.urlopen(response) as response:
                 response = json.load(response)
-                is_error = response.get('errors')
+                is_error = response.get('error')
                 if is_error:
-                    raise MarketBuyError(is_error[0])
+                    raise MarketBuyError(response["error_description"])
                 return response
 
         except error.HTTPError as http_error:
@@ -46,8 +46,6 @@ class BaseMarketAPI:
             error_response = json.loads(error_response).get('errors')
             if error_response:
                 raise MarketBuyError(error_response[0])
-            # If error is empty, then the error is in the authorization
-            raise AuthorizationError('Token is invalid')
         except (error.URLError, socket_error):
             """
             Server can be return a 104 socket error. 
