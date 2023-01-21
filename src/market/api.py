@@ -1,11 +1,11 @@
 from typing import Optional, Tuple
 import re
 
-from .base import BaseMarketAPI, Response
+from .base import BaseMarketAPI
 
 
 class MarketAPI(BaseMarketAPI):
-    def search(self, category: str, search_params: str) -> Response:
+    def search(self, category: str, search_params: str) -> dict:
         response = self.api_request(f'{category}/{search_params}')
         return response
 

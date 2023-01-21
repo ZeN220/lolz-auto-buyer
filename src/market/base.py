@@ -6,8 +6,6 @@ from urllib import request, parse, error
 
 from .errors import MarketBuyError
 
-Response = Dict[str, Union[str, int, List[dict]]]
-
 
 class BaseMarketAPI:
     API_URL: str = 'https://api.lzt.market/'
@@ -24,7 +22,7 @@ class BaseMarketAPI:
         method: str,
         data: Optional[dict] = None,
         request_method: str = 'GET'
-    ) -> Response:
+    ) -> dict:
         if data is not None:
             data = parse.urlencode(data).encode()
         response = request.Request(
