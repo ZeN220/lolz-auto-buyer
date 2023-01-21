@@ -2,6 +2,7 @@ import logging
 
 from src.config import Config
 from src.market import MarketItem, MarketAPI, MarketBuyError
+from src.market.api import parse_search_data
 from src.telegram import TelegramAPI
 
 
@@ -15,7 +16,7 @@ def main():
     count_purchase = 0
     searches = []
     for search_url in config.lolzteam.search_urls_list:
-        category, params = market.parse_search_data(search_url)
+        category, params = parse_search_data(search_url)
         searches.append((category, params))
 
     while True:

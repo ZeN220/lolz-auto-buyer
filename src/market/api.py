@@ -9,10 +9,10 @@ class MarketAPI(BaseMarketAPI):
         response = self.api_request(f'{category}/{search_params}')
         return response
 
-    @staticmethod
-    def parse_search_data(search_url: str) -> Optional[Tuple[str, str]]:
-        parse = re.search(r'https://lzt.market/([\w\-]+)/(.+)', search_url)
-        if not parse:
-            raise TypeError('Format search URL is invalid')
-        category, search_params = parse.groups()
-        return category, search_params
+
+def parse_search_data(search_url: str) -> Optional[Tuple[str, str]]:
+    parse = re.search(r'https://lzt.market/([\w\-]+)/(.+)', search_url)
+    if not parse:
+        raise TypeError('Format search URL is invalid')
+    category, search_params = parse.groups()
+    return category, search_params
