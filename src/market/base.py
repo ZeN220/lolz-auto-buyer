@@ -11,7 +11,7 @@ Response = Dict[str, Union[str, int, List[dict]]]
 
 
 class BaseMarketAPI(ABC):
-    API_URL: str = 'https://api.lolz.guru/market'
+    API_URL: str = 'https://api.lzt.market/'
     # Lolzteam API for market have a limit of 1 requests per 3 second
     delay: int = 3
 
@@ -24,7 +24,7 @@ class BaseMarketAPI(ABC):
         if data is not None:
             data = parse.urlencode(data).encode()
         response = request.Request(
-            url=f'{self.API_URL}/{method}',
+            url=self.API_URL + method,
             data=data, headers=self.headers, method=request_method
         )
 
