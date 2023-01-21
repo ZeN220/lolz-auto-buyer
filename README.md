@@ -9,7 +9,7 @@
 ## Lolzteam
 ```
 token = 31156ccaff01dad7610dd6d4409d1593cd94cd9f
-search_urls_list = https://lzt.market/steam/?order_by=price_to_up, https://lolz.guru/market/discord/?order_by=price_to_up&pmax=10
+search_urls_list = https://lzt.market/steam/?order_by=price_to_up, https://lzt.market/discord/?order_by=price_to_up&pmax=10
 count = 1
 ```
 `token` - Сюда вы вставляете свой токен от аккаунта Lolzteam.<br>
