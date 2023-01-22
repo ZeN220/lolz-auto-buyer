@@ -1,7 +1,7 @@
 from typing import Any
 
 
-class BaseField:
+class BaseSection:
     def __setattr__(self, key: str, value: Any) -> None:
         if isinstance(value, str) and value.isdigit():
             value = int(value)

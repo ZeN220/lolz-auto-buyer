@@ -2,24 +2,24 @@ from configparser import ConfigParser
 from dataclasses import dataclass
 from typing import List
 
-from src.config.base_field import BaseField
+from src.config.base_field import BaseSection
 
 
 @dataclass
-class Lolzteam(BaseField):
+class Lolzteam(BaseSection):
     token: str
     search_urls_list: List[str]
     count: int
 
 
 @dataclass
-class Telegram(BaseField):
+class Telegram(BaseSection):
     bot_token: str
     id: int
 
 
 @dataclass
-class Logging(BaseField):
+class Logging(BaseSection):
     level: int
     format: str
 
