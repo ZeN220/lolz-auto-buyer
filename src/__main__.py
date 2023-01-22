@@ -66,7 +66,7 @@ def main():
                             item_id=item_id,
                             title=account_object["title"],
                             price=account_object["price"],
-                            seller_id=seller["seller_id"],
+                            seller_id=seller["user_id"],
                             seller_username=seller["username"],
                         ),
                         config.telegram.id,
