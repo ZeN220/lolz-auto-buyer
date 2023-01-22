@@ -1,14 +1,14 @@
 import json
 import time
 from socket import error as socket_error
-from typing import Optional, Dict, Union, List
-from urllib import request, parse, error
+from typing import Optional
+from urllib import error, parse, request
 
 from .errors import MarketBuyError
 
 
 class BaseMarketAPI:
-    API_URL: str = 'https://api.lzt.market/'
+    API_URL: str = "https://api.lzt.market/"
     # Lolzteam API for market have a limit of 1 requests per 3 second
     delay: int = 3
 
@@ -21,32 +21,35 @@ class BaseMarketAPI:
         self,
         method: str,
         data: Optional[dict] = None,
-        request_method: str = 'GET'
+        request_method: str = "GET",
     ) -> dict:
         if data is not None:
-            data = parse.urlencode(data).encode()
-        response = request.Request(
+            request_data = parse.urlencode(data).encode()
+        else:
+            request_data = None
+        api_request = request.Request(
             url=self.API_URL + method,
-            data=data, headers=self.headers, method=request_method
+            data=request_data,
+            headers=self.headers,
+            method=request_method,
         )
 
         time.sleep(self.delay)
         try:
-            with request.urlopen(response) as response:
-                response = json.load(response)
-                is_error = response.get('error')
+            with request.urlopen(api_request) as response_object:
+                response = json.load(response_object)
+                is_error = response.get("error")
                 if is_error:
                     raise MarketBuyError(response["error_description"])
                 return response
 
         except error.HTTPError as http_error:
-            error_response = http_error.read().decode('utf-8')
-            error_response = json.loads(error_response).get('errors')
-            if error_response:
-                raise MarketBuyError(error_response[0])
+            error_response = http_error.read().decode("utf-8")
+            error_response = json.loads(error_response).get("errors")
+            raise MarketBuyError(error_response[0])
         except (error.URLError, socket_error):
             """
-            Server can be return a 104 socket error. 
+            Server can be return a 104 socket error.
             This error will not affect the operation of the application
             """
             return self.api_request(method, data, request_method)

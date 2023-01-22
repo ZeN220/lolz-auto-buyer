@@ -1,7 +1,6 @@
-from typing import List
-
 from configparser import ConfigParser
 from dataclasses import dataclass
+from typing import List
 
 from src.config.base_field import BaseField
 
@@ -32,13 +31,13 @@ class Config:
     logging: Logging
 
     @classmethod
-    def load_config(cls, filename: str) -> 'Config':
+    def load_config(cls, filename: str) -> "Config":
         raw_config = ConfigParser()
-        raw_config.read(filename, encoding='utf-8')
+        raw_config.read(filename, encoding="utf-8")
         if not raw_config.sections():
-            raise FileNotFoundError(f'File {filename} is not defined')
+            raise FileNotFoundError(f"File {filename} is not defined")
         return cls(
-            lolzteam=Lolzteam(**raw_config['lolzteam']),
-            telegram=Telegram(**raw_config['telegram']),
-            logging=Logging(**raw_config['logging'])
+            lolzteam=Lolzteam(**raw_config["lolzteam"]),
+            telegram=Telegram(**raw_config["telegram"]),
+            logging=Logging(**raw_config["logging"]),
         )
