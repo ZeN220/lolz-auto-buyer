@@ -16,8 +16,8 @@ class MarketItem(BaseMarketAPI):
 
     def fast_buy(self) -> dict:
         response = self.api_request(
-            'fast-buy',
-            data={'price': self.item_object['price']},
-            request_method='POST'
+            "fast-buy",
+            data={"price": self.item_object["price"]},
+            request_method="POST",
         )
         return response
