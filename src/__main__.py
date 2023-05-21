@@ -42,8 +42,7 @@ def main():
                 len(items),
             )
 
-            for item in items:
-                item_id = item["item_id"]
+            for item_id, item in items.items():
                 market_item = MarketItem(item, lolzteam_token)
                 try:
                     logging.info("Покупаю аккаунт %s", item_id)
