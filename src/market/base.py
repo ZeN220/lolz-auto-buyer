@@ -1,10 +1,13 @@
 import json
+import logging
 import time
 from socket import error as socket_error
 from typing import Optional
 from urllib import error, parse, request
 
 from .errors import MarketBuyError
+
+logger = logging.getLogger(__name__)
 
 
 class BaseMarketAPI:
@@ -45,7 +48,15 @@ class BaseMarketAPI:
 
         except error.HTTPError as http_error:
             error_response = http_error.read().decode("utf-8")
-            error_response = json.loads(error_response).get("errors")
+            logger.warning("Получена ошибка: %s", error_response)
+            try:
+                error_response = json.loads(error_response).get("errors")
+            except json.decoder.JSONDecodeError:
+                """
+                Some errors return body as HTML, 
+                so error is logged and called MarketBuyError to stop application
+                """
+                raise MarketBuyError("Получена неизвестная ошибка")
             raise MarketBuyError(error_response[0])
         except (error.URLError, socket_error):
             """
