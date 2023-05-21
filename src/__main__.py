@@ -6,7 +6,7 @@ from src.market.api import parse_search_data
 from src.telegram import TelegramAPI
 
 TELEGRAM_MESSAGE = (
-    '👷 Приобретен аккаунт: <a href="https://lzt.market/{item_id}">'
+    '🎊 Приобретен аккаунт: <a href="https://lzt.market/{item_id}">'
     "{title}</a>\n"
     "💲 Цена: <code>{price}₽</code>\n"
     '👷 Продавец: <a href="https://zelenka.guru/members/{seller_id}">'
@@ -42,8 +42,7 @@ def main():
                 len(items),
             )
 
-            for item in items:
-                item_id = item["item_id"]
+            for item_id, item in items.items():
                 market_item = MarketItem(item, lolzteam_token)
                 try:
                     logging.info("Покупаю аккаунт %s", item_id)
