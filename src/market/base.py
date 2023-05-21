@@ -53,8 +53,9 @@ class BaseMarketAPI:
                 error_response = json.loads(error_response).get("errors")
             except json.decoder.JSONDecodeError:
                 """
-                Some errors return body as HTML, 
-                so error is logged and called MarketBuyError to stop application
+                Some errors return body as HTML,
+                so error is logged and called MarketBuyError
+                to stop application
                 """
                 raise MarketBuyError("Получена неизвестная ошибка")
             raise MarketBuyError(error_response[0])
