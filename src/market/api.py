@@ -11,7 +11,7 @@ class MarketAPI(BaseMarketAPI):
 
 
 def parse_search_data(search_url: str) -> Optional[Tuple[str, str]]:
-    parse = re.search(r"https://lolz.market/([\w\-]+)/(.+)", search_url)
+    parse = re.search(r"https://lzt.market/([\w\-]+)/(.+)", search_url)
     if not parse:
         raise TypeError("Format search URL is invalid")
     category, search_params = parse.groups()
