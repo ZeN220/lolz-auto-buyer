@@ -1,4 +1,4 @@
-from configparser import ConfigParser
+from configparser import ConfigParser, ExtendedInterpolation
 from dataclasses import dataclass
 from typing import List
 
@@ -32,7 +32,7 @@ class Config:
 
     @classmethod
     def load_config(cls, filename: str) -> "Config":
-        raw_config = ConfigParser()
+        raw_config = ConfigParser(interpolation=ExtendedInterpolation())
         raw_config.read(filename, encoding="utf-8")
         if not raw_config.sections():
             raise FileNotFoundError(f"File {filename} is not defined")
