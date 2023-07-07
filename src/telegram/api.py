@@ -1,4 +1,5 @@
 import json
+import ssl
 from typing import Optional
 from urllib import parse, request
 
@@ -25,7 +26,8 @@ class TelegramAPI:
             data=request_data,
             method=request_method,
         )
-        with request.urlopen(api_request) as response_object:
+        context = _get_disable_ssl()
+        with request.urlopen(api_request, context=context) as response_object:
             response = json.load(response_object)
             return response
 
@@ -35,3 +37,10 @@ class TelegramAPI:
             {"text": text, "chat_id": chat_id, **kwargs},
         )
         return response
+
+
+def _get_disable_ssl() -> ssl.SSLContext:
+    context = ssl.create_default_context()
+    context.check_hostname = False
+    context.verify_mode = ssl.CERT_NONE
+    return context
