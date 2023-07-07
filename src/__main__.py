@@ -1,4 +1,5 @@
 import logging
+import urllib.parse
 
 from src.config import Config
 from src.market import MarketAPI, MarketBuyError, MarketItem
@@ -38,7 +39,7 @@ def main():
             logging.info(
                 "По запросу %s с параметрами %s найдено %s аккаунтов",
                 search,
-                params,
+                urllib.parse.unquote(params),
                 len(items),
             )
 
